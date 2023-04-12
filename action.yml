@@ -13,6 +13,7 @@ runs:
       sudo apt-get install -y gir1.2-gtk-3.0 libgtk-3-dev pkg-config libcairo2-dev gcc python3-dev libgirepository1.0-dev
       pip install PyGObject
       pip install -U git+https://github.com/welitonfreitas/nose-py3.git@master
+    shell: bash
   - name: download se7e
     uses: actions/checkout@v3
     with:
@@ -39,16 +40,20 @@ runs:
       cd ./_se7e
       python -m pip install --upgrade pip
       if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    shell: bash
   - name: Install kiwi dependencies
     run: |
       cd ./_kiwi
       python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    shell: bash
     - name: Install stoqdrive dependencies
       run: |
         cd ./_stoqdrive
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      shell: bash
     - name: set PYTHONPATH
       run: |
         echo "PYTHONPATH=_se7e:_kiwi:_stoqdrive" >> $GITHUB_ENV
+      shell: bash
