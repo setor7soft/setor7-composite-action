@@ -1,6 +1,10 @@
     
 name: 'Se7e environment'
 description: 'Install se7e environment'
+inputs:
+  token:
+    description: 'A Github PAT'
+    required: true
 runs:
   using: "composite"
   steps:
@@ -20,21 +24,21 @@ runs:
       repository: setor7soft/se7e
       submodules: 'true'
       path: ./_se7e
-      token: ${{ secrets.SE7E_SECRET_TOKEN }}
+      token: ${{ inputs.token }}
   - name: download kiwi
     uses: actions/checkout@v3
     with:
       repository: setor7soft/kiwi
       submodules: 'true'
       path: ./_kiwi
-      token: ${{ secrets.SE7E_SECRET_TOKEN }}
+      token: ${{ inputs.token }}
   - name: download stoqdrivers
     uses: actions/checkout@v3
     with:
       repository: setor7soft/stoqdrive
       submodules: 'true'
       path: ./_stoqdrive
-      token: ${{ secrets.SE7E_SECRET_TOKEN }}
+      token: ${{ inputs.token }}
   - name: Install se7e dependencies
     run: |
       cd ./_se7e
