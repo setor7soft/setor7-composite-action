@@ -51,13 +51,13 @@ runs:
       python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     shell: bash
-    - name: Install stoqdrive dependencies
-      run: |
-        cd ./_stoqdrive
-        python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      shell: bash
-    - name: set PYTHONPATH
-      run: |
-        echo "PYTHONPATH=_se7e:_kiwi:_stoqdrive" >> $GITHUB_ENV
-      shell: bash
+  - name: Install stoqdrive dependencies
+    run: |
+      cd ./_stoqdrive
+      python -m pip install --upgrade pip
+      if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    shell: bash
+  - name: set PYTHONPATH
+    run: |
+      echo "PYTHONPATH=_se7e:_kiwi:_stoqdrive" >> $GITHUB_ENV
+    shell: bash
