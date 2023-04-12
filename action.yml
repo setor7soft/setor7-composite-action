@@ -1,10 +1,8 @@
     
 name: 'Se7e environment'
 description: 'Install se7e environment'
-  
 runs:
   using: "composite"
-    
     # Service containers to run with `runner-job`
     services:
       # Label used to access the service container
@@ -24,20 +22,16 @@ runs:
         ports:
           # Maps tcp port 5432 on service container to the host
           - 5432:5432
-    
-    
     steps:
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:
         python-version: "3.10"
-
     - name: Install pyobject
       run: | 
         sudo apt-get install -y gir1.2-gtk-3.0 libgtk-3-dev pkg-config libcairo2-dev gcc python3-dev libgirepository1.0-dev
         pip install PyGObject
         pip install -U git+https://github.com/welitonfreitas/nose-py3.git@master
-    
     - name: download se7e
       uses: actions/checkout@v3
       with:
@@ -45,7 +39,6 @@ runs:
         submodules: 'true'
         path: ./_se7e
         token: ${{ secrets.SE7E_SECRET_TOKEN }}
-
     - name: download kiwi
       uses: actions/checkout@v3
       with:
@@ -53,7 +46,6 @@ runs:
         submodules: 'true'
         path: ./_kiwi
         token: ${{ secrets.SE7E_SECRET_TOKEN }}
-    
     - name: download stoqdrivers
       uses: actions/checkout@v3
       with:
@@ -61,7 +53,6 @@ runs:
         submodules: 'true'
         path: ./_stoqdrive
         token: ${{ secrets.SE7E_SECRET_TOKEN }}
-    
     - name: Install se7e dependencies
       run: |
         cd ./_se7e
@@ -72,13 +63,11 @@ runs:
         cd ./_kiwi
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    
     - name: Install stoqdrive dependencies
       run: |
         cd ./_stoqdrive
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    
     - name: set PYTHONPATH
       run: |
         echo "PYTHONPATH=_se7e:_kiwi:_stoqdrive" >> $GITHUB_ENV
