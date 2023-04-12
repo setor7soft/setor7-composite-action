@@ -3,25 +3,6 @@ name: 'Se7e environment'
 description: 'Install se7e environment'
 runs:
   using: "composite"
-    # Service containers to run with `runner-job`
-    services:
-      # Label used to access the service container
-      postgres:
-        # Docker Hub image
-        image: postgres
-        # Provide the password for postgres
-        env:
-          POSTGRES_HOST_AUTH_METHOD: trust
-          POSTGRES_USER: se7e_test
-        # Set health checks to wait until postgres has started
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          # Maps tcp port 5432 on service container to the host
-          - 5432:5432
     steps:
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
