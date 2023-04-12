@@ -1,7 +1,6 @@
     
 name: 'Se7e environment'
 description: 'Install se7e environment'
-inputs:
   
 runs:
   using: "composite"
