@@ -23,41 +23,41 @@ runs:
     with:
       repository: setor7soft/se7e
       submodules: 'true'
-      path: ./_se7e
+      path: ${{github.action_path}}/_se7e
       token: ${{ inputs.token }}
   - name: download kiwi
     uses: actions/checkout@v3
     with:
       repository: setor7soft/kiwi
       submodules: 'true'
-      path: ./_kiwi
+      path: ${{github.action_path}}/_kiwi
       token: ${{ inputs.token }}
   - name: download stoqdrivers
     uses: actions/checkout@v3
     with:
       repository: setor7soft/stoqdrive
       submodules: 'true'
-      path: ./_stoqdrive
+      path: ${{github.action_path}}/_stoqdrive
       token: ${{ inputs.token }}
   - name: Install se7e dependencies
     run: |
-      cd ./_se7e
+      cd ${{github.action_path}}/_se7e
       python -m pip install --upgrade pip
       if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     shell: bash
   - name: Install kiwi dependencies
     run: |
-      cd ./_kiwi
+      cd ${{github.action_path}}/_kiwi
       python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     shell: bash
   - name: Install stoqdrive dependencies
     run: |
-      cd ./_stoqdrive
+      cd ${{github.action_path}}/_stoqdrive
       python -m pip install --upgrade pip
       if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     shell: bash
   - name: set PYTHONPATH
     run: |
-      echo "PYTHONPATH=_se7e:_kiwi:_stoqdrive" >> $GITHUB_ENV
+      echo "PYTHONPATH=${{github.action_path}}/_se7e:${{github.action_path}}/_kiwi:${{github.action_path}}/_stoqdrive" >> $GITHUB_ENV
     shell: bash
